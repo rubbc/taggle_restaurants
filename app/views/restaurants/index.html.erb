@@ -2,35 +2,41 @@
 
 <h1>Restaurants</h1>
 
-<!-- <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%# @restaurants.each do |restaurant| %>
-      <tr>
-        <td><%#= restaurant.name %></td>
-        <td><%#= restaurant.description %></td>
-        <td><%#= link_to 'Show', restaurant %></td>
-        <td><%#= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-        <td><%#= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <%# end %>
-  </tbody>
-</table>
-
-<br> -->
-
 <% @restaurants.each do |r| %>
-  <h2><%= r.name %></h2>
+  <%# raise %>
+  <h2><%= r.name.titleize %></h2>
+  <p><%= r.description %></p>
   <p><% r.tag_list.each do |tag| %>
     <%= link_to tag, tagged_path(tag: tag) %>
   <% end %></p>
 <% end %>
 
-<%#= link_to 'New Restaurant', new_restaurant_path %>
+
+<h2>Most used tags</h2>
+
+<% ActsAsTaggableOn::Tag.most_used(3).each do |tag| %>
+  <p><%= link_to tag.name, tagged_path(tag: tag.name) %></p>
+  <%# raise %>
+<% end %>
+
+<%= simple_form_for :search, url: root_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+  <p>Name</p>
+  <%= f.input :name, input_html: {value: "", placeholder: "HEYY"} %>
+  <%= f.submit "Search", class: "btn btn-primary" %>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

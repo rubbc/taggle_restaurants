@@ -1,0 +1,10 @@
+
+<h1><%= params[:tag] %> ✌🏼</h1>
+
+<ul>
+  <% @restaurants.each do |restaurant|%>
+    <p><%= restaurant.name.titleize %></p>
+  <% end %>
+</ul>
+
+<%= link_to 'restaurants'.titleize, restaurants_path %>

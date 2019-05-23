@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @restaurant.name %>
-</p>
+<h1><%= @restaurant.name %></h1>
+<ul>
+  <% @related_restaurants.each do |r| %>
+    <li><%= link_to r.name, restaurant_path(r) %></li>
+  <% end %>
+</ul>
 
-<p>
-  <strong>Description:</strong>
-  <%= @restaurant.description %>
-</p>
-
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+<ul>
+  <% @restaurant.tag_list.each do |tag| %>
+    <li><%= tag %></li>
+  <% end %>
+</ul>

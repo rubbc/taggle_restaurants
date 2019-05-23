@@ -3,13 +3,34 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants
   # GET /restaurants.json
+
   def index
     @restaurants = Restaurant.all
+    @search = params["search"]
+    if @search.present?
+      @name = @search["name"]
+      @restaurants = Restaurant.where(name: "%#{@name}%")
+    end
+
+  end
+
+  def most_used_tags
+    @most_used_tags = ActsAsTaggableOn::Tag.most_used(3)
   end
 
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+    @restaurant = Restaurant.find(params[:id])
+    @related_restaurants = @restaurant.find_related_tags
+  end
+
+  def tagged
+    if params[:tag].present?
+      @restaurants = Restaurant.tagged_with(params[:tag])
+    else
+      @restaurants = Restaurant.all
+    end
   end
 
   # GET /restaurants/new
