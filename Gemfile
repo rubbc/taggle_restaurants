@@ -17,7 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 gem 'acts-as-taggable-on', '~> 6.0'
-
+gem 'searchkick'
 
 gem 'sassc'
 gem 'simple_form'
