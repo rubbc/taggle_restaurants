@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
     @search = params["search"]
     if @search.present?
       @name = @search["name"]
-      @restaurants = Restaurant.where(name: "%#{@name}%")
+      @restaurants = Restaurant.where("name ILIKE ?", "%#{@name}%")
     end
 
   end
