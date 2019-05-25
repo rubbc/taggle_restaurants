@@ -9,7 +9,9 @@ class RestaurantsController < ApplicationController
     @search = params["search"]
     if @search.present?
       @name = @search["name"]
-      @restaurants = Restaurant.where("name ILIKE ?", "%#{@name}%")
+      @restaurants = Restaurant.search(@name), fields: [:name], match: :word_start
+    else
+      @restaurants = Restaurant.all.sample(3)
     end
 
   end

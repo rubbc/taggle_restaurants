@@ -22,6 +22,7 @@ gem 'searchkick'
 gem 'sassc'
 gem 'simple_form'
 gem 'bootstrap'
+gem 'jquery-rails'
 
 
 

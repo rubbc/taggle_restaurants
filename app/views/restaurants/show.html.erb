@@ -1,14 +1,37 @@
 <p id="notice"><%= notice %></p>
 
+
+
+
 <h1><%= @restaurant.name %></h1>
+<p><%= @restaurant.description %></p>
+
+
+
+<ul>
+  <% if @restaurant.tag_list.length > 0 %>
+    <% @restaurant.tag_list.each do |tag| %>
+        <li><%= link_to tag, tagged_path(tag: tag) %></li>
+    <% end %>
+  <% else %>
+      <p>Pas encore de tag pour ce restaurant</p>
+  <% end %>
+</ul>
+
+
+
+<br><br>
+
+
+
+<p>Vous aimerez aussi...</p>
+
 <ul>
   <% @related_restaurants.each do |r| %>
     <li><%= link_to r.name, restaurant_path(r) %></li>
   <% end %>
 </ul>
 
-<ul>
-  <% @restaurant.tag_list.each do |tag| %>
-    <li><%= tag %></li>
-  <% end %>
-</ul>
+
+<%= link_to 'home', restaurants_path %>
+
