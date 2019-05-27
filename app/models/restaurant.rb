@@ -1,4 +1,4 @@
 class Restaurant < ApplicationRecord
-  searchkick word_middle: [:name]
+  searchkick
   acts_as_taggable_on :tags
 end

@@ -3,15 +3,22 @@
 
 
 
-<h1><%= @restaurant.name %></h1>
+<h1><%= @restaurant.name.titleize %></h1>
+<p><%=  @restaurant.id %></p>
 <p><%= @restaurant.description %></p>
 
 
 
 <ul>
   <% if @restaurant.tag_list.length > 0 %>
-    <% @restaurant.tag_list.each do |tag| %>
+    <% if @restaurant.tag_list.length > 3 %>
+      <% @restaurant.tag_list.each do |tag| %>
         <li><%= link_to tag, tagged_path(tag: tag) %></li>
+      <% end %>
+    <% else %>
+      <% @restaurant.tag_list.each do |tag| %>
+          <li><%= link_to tag, tagged_path(tag: tag) %></li>
+      <% end %>
     <% end %>
   <% else %>
       <p>Pas encore de tag pour ce restaurant</p>
@@ -27,8 +34,20 @@
 <p>Vous aimerez aussi...</p>
 
 <ul>
-  <% @related_restaurants.each do |r| %>
+  <% @related_restaurants.sample(3).each do |r| %>
     <li><%= link_to r.name, restaurant_path(r) %></li>
+  <% end %>
+</ul>
+
+<p>Dans le même quartier</p>
+
+<ul>
+  <% @related_restaurants.each do |r| %>
+    <% if !r.arrondissement.nil? %>
+      <% if r.arrondissement = @restaurant.arrondissement %>
+        <li><%= link_to r.name, restaurant_path(r) %></li>
+      <% end %>
+    <% end %>
   <% end %>
 </ul>
 
