@@ -1,16 +1,19 @@
 require 'open-uri'
 require 'nokogiri'
 
-url = "https://www.mangercacher.com/mon-quartier.php"
+
+
+nb = '12'
+url = "https://www.123cacher.fr/restaurants/ile_de_france/paris/?pg=#{nb}"
 
 html_file = open(url).read
 html_doc = Nokogiri::HTML(html_file)
 
-html_doc.search('div.listResultProxi div.name').each do |element|
-  print element.text
+html_doc.search('div.fresto-listing-v2').each do |element|
+  puts element.text.chomp.strip
 end
 
+# html_doc.search('div.fresto-listing-v2 h4').each do |element|
+#   puts element.text.strip
+# end
 
-# restos.forEach((item) => {
-#   console.log(item.innerText);
-# });
