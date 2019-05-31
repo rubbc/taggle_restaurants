@@ -14,15 +14,29 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.all.sample(3)
     end
 
+    @all_restaurants = Restaurant.all
+    @liste_arrondissements = []
+    @all_restaurants.each do |restaurant|
+      @liste_arrondissements << restaurant.arrondissement_list.first.to_i
+    end
+    @liste_arrondissements.sort! { |a, b| a <=> b }
+    @liste_arrondissements.uniq!
   end
+
+
 
   def most_used_tags
     @most_used_tags = ActsAsTaggableOn::Tag.most_used(3)
   end
 
+  def all_arr
+
+  end
+
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+    @restaurants = Restaurant.all
     @restaurant = Restaurant.find(params[:id])
     @related_restaurants = @restaurant.find_related_tags
   end

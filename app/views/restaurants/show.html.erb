@@ -3,8 +3,19 @@
 
 
 
-<h1><%= @restaurant.name.titleize %></h1>
-<p><%=  @restaurant.id %></p>
+<h1><%= @restaurant.name.titleize %> <%= @restaurant.id %></h1>
+
+<%= link_to @restaurant.arrondissement_list.first, tagged_path(tag: @restaurant.arrondissement_list.first) %>
+
+  <%# if arr < 2 %>
+    <p><%#= link_to "#{arr}er arrondissement", tagged_path(tag: arr) %>
+  <%# else %>
+    <p><%#= link_to "#{arr}ème arrondissement", tagged_path(tag: arr) %>
+  <%# end %>
+
+<%# end %>
+
+
 <p><%= @restaurant.description %></p>
 
 
@@ -12,7 +23,7 @@
 <ul>
   <% if @restaurant.tag_list.length > 0 %>
     <% if @restaurant.tag_list.length > 3 %>
-      <% @restaurant.tag_list.each do |tag| %>
+      <% @restaurant.tag_list.sample(3).each do |tag| %>
         <li><%= link_to tag, tagged_path(tag: tag) %></li>
       <% end %>
     <% else %>
@@ -30,8 +41,10 @@
 <br><br>
 
 
+<% if @related_restaurants.any? %>
+  <p>Vous aimerez aussi...</p>
+<% end %>
 
-<p>Vous aimerez aussi...</p>
 
 <ul>
   <% @related_restaurants.sample(3).each do |r| %>
@@ -39,12 +52,14 @@
   <% end %>
 </ul>
 
+
+
 <p>Dans le même quartier</p>
 
 <ul>
-  <% @related_restaurants.each do |r| %>
+  <% @restaurants.each do |r| %>
     <% if !r.arrondissement.nil? %>
-      <% if r.arrondissement = @restaurant.arrondissement %>
+      <% if r.arrondissement == @restaurant.arrondissement && r.id != @restaurant.id %>
         <li><%= link_to r.name, restaurant_path(r) %></li>
       <% end %>
     <% end %>

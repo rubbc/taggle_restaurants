@@ -3,34 +3,97 @@
 <h1>Restaurants</h1>
 
 <%= simple_form_for :search, url: root_path, method: "GET", html: {id: 'query' } do |f| %>
-  <%= f.input :name, input_html: {value: "", placeholder: "search restaurant", class: 'search-restaurant'} %>
-  <%= f.submit "Search", class: "btn btn-secondary" %>
+  <%= f.input :name, input_html: {value: "", placeholder: "Un restaurant, un thème", class: 'search-restaurant'} %>
+  <%= f.submit "Chercher", class: "btn btn-primary" %>
 <% end %>
 
+
+<% found_restaurants_count = 0 %>
 
 
 
 <% @restaurants.each do |r| %>
-  <%# raise %>
+
   <p><%= link_to r.name.titleize, restaurant_path(r) %></p>
-  <p><%#= r.id %></p>
-  <p><%#= r.description %></p>
-  <p><%# r.tag_list.each do |tag| %>
-    <%#= link_to tag, tagged_path(tag: tag) %>
-  <%# end %></p>
+
+  <% found_restaurants_count = found_restaurants_count + 1 %>
+
 <% end %>
 
+<i><%= found_restaurants_count%> restaurants trouvés</i>
 
 
-<br>
+
+
+<br><br>
 
 <h2>Most used tags 🚨</h2>
 
 <% ActsAsTaggableOn::Tag.most_used(3).each do |tag| %>
-  <p><%= link_to tag.name, tagged_path(tag: tag.name) %></p>
+  <%= link_to tag.name, tagged_path(tag: tag.name) %>
   <%# raise %>
 <% end %>
 
+<br><br>
+
+<div class="col-md-6">
+  <h2>Les restaurants à faire en amoureux ❤</h2>
+
+  <% Restaurant.tagged_with('en amoureux').each do |restaurant| %>
+    <p><%= link_to restaurant.name.titleize, restaurant_path(restaurant) %></p>
+  <% end %>
+</div>
+
+<div class="col-md-6">
+  <h2>Les meilleurs restos Italiens 🇮🇹</h2>
+
+  <% Restaurant.tagged_with('pizza').each do |restaurant| %>
+    <p><%= link_to restaurant.name.titleize, restaurant_path(restaurant) %></p>
+  <% end %>
+
+</div>
+
+<br><br>
+
+
+<br><br>
+<h3>Une soirée à Rome avec tes potes</h3>
+
+<% Restaurant.tagged_with(['pizza', 'bonne soiree entre amis']).each do |restaurant| %>
+  <p><%= link_to restaurant.name.titleize, restaurant_path(restaurant) %></p>
+<% end %>
+
+<br><br>
+
+
+<h2>Les restaurants par localisation</h2>
+
+<%# liste_arrondissements = [] %>
+
+<%# Restaurant.all.each do |restaurant| %>
+
+  <%# liste_arrondissements << restaurant.arrondissement_list.first.to_i  %>
+
+<%# end %>
+
+<%# liste_arrondissements.sort! { |a, b| a <=> b } %>
+
+<%# liste_arrondissements.uniq! %>
+
+<% @liste_arrondissements.each do |arr| %>
+
+  <% if arr < 2 %>
+    <p><%= link_to "#{arr}er arrondissement", tagged_path(tag: arr) %>
+  <% else %>
+    <p><%= link_to "#{arr}ème arrondissement", tagged_path(tag: arr) %>
+  <% end %>
+
+<% end %>
+
+
+
+
+<!-- Afficher les restos  -->
 
 
 

@@ -5,14 +5,45 @@
 .search-restaurant{
   height: 40px;
   width: 400px;
-  border: 2px solid black;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid black;
   font-weight: bolder;
   font-size: 23px;
   padding: 10px;
   margin-bottom: 3%;
+
 }
 
 
 form{
   margin-bottom: 10%;
 }
+/*
+.btn{
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 20px;
+  box-shadow: 2px 5px 2px rgba(0, 0, 200, 0.1);
+  transition: 0.4s;
+}
+
+
+.btn:hover{
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 20px;
+  box-shadow: none;
+}
+*/

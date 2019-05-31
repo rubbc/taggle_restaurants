@@ -21,7 +21,7 @@ gem 'searchkick'
 
 gem 'sassc'
 gem 'simple_form'
-gem 'bootstrap'
+gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 
 
