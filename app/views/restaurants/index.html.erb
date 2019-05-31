@@ -7,6 +7,8 @@
   <%= f.submit "Chercher", class: "btn btn-primary" %>
 <% end %>
 
+<br><br>
+
 
 <% found_restaurants_count = 0 %>
 
@@ -30,19 +32,29 @@
 <h2>Most used tags 🚨</h2>
 
 <% ActsAsTaggableOn::Tag.most_used(3).each do |tag| %>
-  <%= link_to tag.name, tagged_path(tag: tag.name) %>
-  <%# raise %>
+
+  <% if tag.name.to_i == 0 %>
+    <%= link_to tag.name, tagged_path(tag: tag.name) %>
+  <% end %>
+
 <% end %>
+
+
 
 <br><br>
 
-<div class="col-md-6">
+
   <h2>Les restaurants à faire en amoureux ❤</h2>
 
-  <% Restaurant.tagged_with('en amoureux').each do |restaurant| %>
+  <% Restaurant.tagged_with('en amoureux').sample(3).each do |restaurant| %>
     <p><%= link_to restaurant.name.titleize, restaurant_path(restaurant) %></p>
   <% end %>
-</div>
+
+
+
+
+
+
 
 <div class="col-md-6">
   <h2>Les meilleurs restos Italiens 🇮🇹</h2>
@@ -57,7 +69,7 @@
 
 
 <br><br>
-<h3>Une soirée à Rome avec tes potes</h3>
+<h3>Une soirée Italienne avec tes potes</h3>
 
 <% Restaurant.tagged_with(['pizza', 'bonne soiree entre amis']).each do |restaurant| %>
   <p><%= link_to restaurant.name.titleize, restaurant_path(restaurant) %></p>

@@ -5,15 +5,11 @@
 
 <h1><%= @restaurant.name.titleize %> <%= @restaurant.id %></h1>
 
-<%= link_to @restaurant.arrondissement_list.first, tagged_path(tag: @restaurant.arrondissement_list.first) %>
-
-  <%# if arr < 2 %>
-    <p><%#= link_to "#{arr}er arrondissement", tagged_path(tag: arr) %>
-  <%# else %>
-    <p><%#= link_to "#{arr}ème arrondissement", tagged_path(tag: arr) %>
-  <%# end %>
-
-<%# end %>
+<% if @restaurant.arrondissement_list.first %>
+  <%= link_to @restaurant.arrondissement_list.first, tagged_path(tag: @restaurant.arrondissement_list.first) %>
+<% else %>
+  <%= @restaurant.arrondissement %>
+<% end %>
 
 
 <p><%= @restaurant.description %></p>
@@ -65,6 +61,29 @@
     <% end %>
   <% end %>
 </ul>
+
+
+
+<ul>
+  <% @restaurants.each do |restaurant| %>
+
+    <% if !restaurant.arrondissement_list.first.nil? %>
+      <% if restaurant.arrondissement_list.first == @restaurant.arrondissement_list.first && restaurant.id != @restaurant.id %>
+        <li><%= link_to restaurant.name, restaurant_path(restaurant) %></li>
+    <% end %>
+    <% end %>
+
+  <% end %>
+
+
+
+
+</ul>
+
+
+
+
+
 
 
 <%= link_to 'home', restaurants_path %>
