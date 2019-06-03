@@ -43,7 +43,6 @@
 
 <br><br>
 
-
   <h2>Les restaurants à faire en amoureux ❤</h2>
 
   <% Restaurant.tagged_with('en amoureux').sample(3).each do |restaurant| %>
@@ -51,19 +50,11 @@
   <% end %>
 
 
-
-
-
-
-
-<div class="col-md-6">
   <h2>Les meilleurs restos Italiens 🇮🇹</h2>
 
   <% Restaurant.tagged_with('pizza').each do |restaurant| %>
     <p><%= link_to restaurant.name.titleize, restaurant_path(restaurant) %></p>
   <% end %>
-
-</div>
 
 <br><br>
 
@@ -80,17 +71,6 @@
 
 <h2>Les restaurants par localisation</h2>
 
-<%# liste_arrondissements = [] %>
-
-<%# Restaurant.all.each do |restaurant| %>
-
-  <%# liste_arrondissements << restaurant.arrondissement_list.first.to_i  %>
-
-<%# end %>
-
-<%# liste_arrondissements.sort! { |a, b| a <=> b } %>
-
-<%# liste_arrondissements.uniq! %>
 
 <% @liste_arrondissements.each do |arr| %>
 

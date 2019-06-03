@@ -4,6 +4,7 @@
 
 
 <h1><%= @restaurant.name.titleize %> <%= @restaurant.id %></h1>
+<h3><%= @restaurant.address %></h3>
 
 <% if @restaurant.arrondissement_list.first %>
   <%= link_to @restaurant.arrondissement_list.first, tagged_path(tag: @restaurant.arrondissement_list.first) %>
@@ -79,7 +80,6 @@
 
 
 </ul>
-
 
 
 
