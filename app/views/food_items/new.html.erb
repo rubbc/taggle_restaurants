@@ -1,0 +1,8 @@
+<%# raise %>
+
+<%= simple_form_for [@restaurant, @food_item] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :price %>
+  <%= f.input :description %>
+  <%= f.submit "add a food item", class: "btn btn-primary" %>
+<% end %>

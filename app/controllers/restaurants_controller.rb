@@ -29,8 +29,7 @@ class RestaurantsController < ApplicationController
     @most_used_tags = ActsAsTaggableOn::Tag.most_used(3)
   end
 
-  def all_arr
-
+  def menu
   end
 
   # GET /restaurants/1
@@ -39,6 +38,7 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.all
     @restaurant = Restaurant.find(params[:id])
     @related_restaurants = @restaurant.find_related_tags
+    @reviews = Review.all
   end
 
   def tagged

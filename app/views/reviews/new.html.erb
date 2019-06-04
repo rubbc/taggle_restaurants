@@ -1,0 +1,28 @@
+<h1>Ajouter un nouveau plat</h1>
+
+<div class="row">
+  <div class="col-lg-5 offset-3">
+    <%= simple_form_for [@restaurant, @review] do |f| %>
+
+
+  <% if @review.errors.any? %>
+  <p>Remplissez tous les champs !</p>
+    <div class="errors-container">
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :content %>
+  <%= f.input :price %>
+  <%= f.input :section, collection: [ "entrees", "plats", "desserts" ], input_html: { class: 'custom-select' } %>
+
+  <%= f.submit "add a review", class: "btn btn-primary" %>
+<% end %>
+  </div>
+</div>
+<br>
+

@@ -11,45 +11,44 @@
 <% else %>
   <%= @restaurant.arrondissement %>
 <% end %>
-
-
 <p><%= @restaurant.description %></p>
 
-
-
-<ul>
-  <% if @restaurant.tag_list.length > 0 %>
-    <% if @restaurant.tag_list.length > 3 %>
-      <% @restaurant.tag_list.sample(3).each do |tag| %>
-        <li><%= link_to tag, tagged_path(tag: tag) %></li>
+<div class="row">
+<div class="col-xs-12 col-md-4 col-lg-4">
+ <p>Les tags associés</p>
+  <ul>
+    <% if @restaurant.tag_list.length > 0 %>
+      <% if @restaurant.tag_list.length > 3 %>
+        <% @restaurant.tag_list.sample(3).each do |tag| %>
+          <li><%= link_to tag, tagged_path(tag: tag) %></li>
+        <% end %>
+      <% else %>
+        <% @restaurant.tag_list.each do |tag| %>
+            <li><%= link_to tag, tagged_path(tag: tag) %></li>
+        <% end %>
       <% end %>
     <% else %>
-      <% @restaurant.tag_list.each do |tag| %>
-          <li><%= link_to tag, tagged_path(tag: tag) %></li>
-      <% end %>
+        <p>Pas encore de tag pour ce restaurant</p>
     <% end %>
-  <% else %>
-      <p>Pas encore de tag pour ce restaurant</p>
-  <% end %>
-</ul>
+  </ul>
 
-
+</div>
 
 <br><br>
 
-
-<% if @related_restaurants.any? %>
-  <p>Vous aimerez aussi...</p>
-<% end %>
-
-
-<ul>
-  <% @related_restaurants.sample(3).each do |r| %>
-    <li><%= link_to r.name, restaurant_path(r) %></li>
+<div class="col-xs-12 col-md-4 col-lg-4 offset-2">
+  <% if @related_restaurants.any? %>
+    <p>Vous aimerez aussi...</p>
   <% end %>
-</ul>
 
 
+  <ul>
+    <% @related_restaurants.sample(3).each do |r| %>
+      <li><%= link_to r.name, restaurant_path(r) %></li>
+    <% end %>
+  </ul>
+</div>
+</div>
 
 <p>Dans le même quartier</p>
 
@@ -66,6 +65,7 @@
 
 
 <ul>
+
   <% @restaurants.each do |restaurant| %>
 
     <% if !restaurant.arrondissement_list.first.nil? %>
@@ -76,15 +76,24 @@
 
   <% end %>
 
-
-
-
 </ul>
 
 
+<h2>Menu</h2>
 
+<% Section.all.each do |section| %>
+  <div class="col-md-4">
+    <h2><%= section.titleize %></h2>
+    <% @reviews.each do |review| %>
+      <% if review.section == section %>
+        <p><%= review.content.titleize %> <u><%= review.price %> €</u> </p>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
 
 
 
 <%= link_to 'home', restaurants_path %>
+<%= link_to 'new food item', new_restaurant_review_path(@restaurant) %>
 

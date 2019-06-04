@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  get 'arrondissements/index'
-  get 'arrondissements/show'
-  resources :restaurants
-  resources :arrondissements
+
+  get 'reviews/new'
+  get 'reviews/create'
+  resources :restaurants do
+    resources :reviews, only: [ :new, :create ]
+  end
 
   get '/tagged', to: "restaurants#tagged", as: :tagged
 
